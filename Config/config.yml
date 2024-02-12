@@ -1,0 +1,10 @@
+models: 
+  - type: main
+    engine: VertexAI
+    model: gemini-pro
+
+rails: 
+  retrieval:
+    flows:
+      - check retrieval sensitive data
+        You will make sure that the bot output complies with the examples given in the knowledge base Input.md and all conversational aspects of the output are discarded returning output only as yaml text.
