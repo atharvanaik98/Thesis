@@ -3,9 +3,18 @@ import asyncio
 from langchain_google_vertexai import VertexAI
 from langchain_core.prompts import PromptTemplate
 import requests
+from pathlib import Path
+from nemoguardrails import LLMRails, RailsConfig
 
 #selection of the model for generative content: 
 model = VertexAI(model_name = "gemini-pro")
+
+#selection of config path 
+config_path = ("C:\Onedrive\OneDrive - Chalmers\Thesis Files\Repo\Thesis\Config\config.yml")
+
+#initiate guardrails for the model
+config = RailsConfig.from_path(config_path)
+rails = LLMRails(config)
 
 #Github location url for the context file stored in the repository 
 repo_url = "https://raw.githubusercontent.com/firestorm98/Thesis/main/Input.txt"
@@ -14,12 +23,18 @@ headers = {
     "authorization": f"token {TOKEN}", 
     "Accept": "text/plain"
 }
-async def generate_text():
+"""async def generate_text():
     context = requests.get(repo_url, headers=headers).text
     prompt = input("Enter the description of the geometry you want to select: ")
     modelprep = await model.abatch([context, prompt])
     generated_text = modelprep[0]
     print(generated_text)
 
-asyncio.run(generate_text())
+asyncio.run(generate_text())"""
 
+response = rails.generate(messages=[{
+    "role": "user",
+    "content": input("Enter the description of the geometry you want to select: ")
+}])
+
+print(response)
