@@ -18,7 +18,7 @@ chat.send_message(context)
 #Input the prompt here
 prompt = input("Enter the description of the geometry you want to select: ")
 
-    #Generate a response based on the prompt
+#Generate a response based on the prompt
 response = chat.send_message(prompt)
 
 print()
