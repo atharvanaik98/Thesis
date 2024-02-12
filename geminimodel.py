@@ -1,16 +1,21 @@
 import vertexai
 import requests
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
-vertexai.init(project = "totemic-veld-412608")
 from pathlib import Path
+import yaml
 
 def remove_code_fences(text):
     lines = text.split('\n')
     lines = [line for line in lines if not line.strip().startswith('```')]
     return '\n'.join(lines)
 
+#Initiate vertexai project
+vertexai.init(project = "totemic-veld-412608")
+
+
 here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
+filepath = (here / "yaml.yml")
 
 #redundant code for now 
 """
@@ -38,3 +43,6 @@ response = chat.send_message(prompt)
 #print response based on prompt and context. 
 print()
 print(remove_code_fences(response.text))
+
+with open (filepath, 'w') as yaml_file:
+    yaml.dump(response.text, yaml_file, default_flow_style = False)
