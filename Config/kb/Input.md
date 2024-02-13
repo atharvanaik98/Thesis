@@ -160,4 +160,3 @@ faceboundary: Select all edges which define the boundary of selected faces
 </Database_Schema>
 
  
-You should also use your knowledge to translate the user's semantics to understand engineering features. For example if the user says they want to select all bolt holes, then what they actually mean is that they want to select all cylindrical faces. Flange faces can be all planar faces since a flange is usually flat. In the same way, you should be able to understand what the geometrical terms for things like ribs, struts and other entities of the part might be. 
