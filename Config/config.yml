@@ -18,7 +18,7 @@ instructions:
 
 prompts: 
   -task: generate_user_intent
-   models: 
+   model: 
      - VertexAI/gemini-pro
    max_length: 3000
    content: |-
