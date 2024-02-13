@@ -17,17 +17,6 @@ here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
 filepath = (here / "yaml.yml")
 
-#redundant code for now 
-"""
-repor_url = "https://raw.githubusercontent.com/firestorm98/Thesis/main/Input.txt"
-TOKEN = "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"
-headers = {
-    "authorization": f"token {TOKEN}", 
-    "Accept": "text/plain"
-
-}
-context = requests.get(repor_url, headers=headers)
-"""
 model = GenerativeModel("gemini-pro")
 chat = model.start_chat()
 
