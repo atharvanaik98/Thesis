@@ -22,9 +22,9 @@ TOKEN = "github_pat_11AMXFR3A0gxBLoDKIrtX1_lvO4Ok4bRZxpLVkkCMtovIdFz2xo7JdS3XFKd
 headers = {
     "authorization": f"token {TOKEN}", 
     "Accept": "text/plain"
+}
 
 #section is on hold until nemoguard rails are being figured out. Doesnt work anyway, required for reference. 
-}
 """
 async def generate_text():
     context = requests.get(repo_url, headers=headers).text
