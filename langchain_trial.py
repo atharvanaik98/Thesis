@@ -24,14 +24,18 @@ headers = {
     "authorization": f"token {TOKEN}", 
     "Accept": "text/plain"
 }
-"""async def generate_text():
+
+#section is on hold until nemoguard rails are being figured out. Doesnt work anyway, required for reference. 
+"""
+async def generate_text():
     context = requests.get(repo_url, headers=headers).text
     prompt = input("Enter the description of the geometry you want to select: ")
     modelprep = await model.abatch([context, prompt])
     generated_text = modelprep[0]
     print(generated_text)
 
-asyncio.run(generate_text())"""
+asyncio.run(generate_text())
+"""
 
 response = rails.generate(messages=[{
     "role": "user",
