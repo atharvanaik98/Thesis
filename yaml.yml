@@ -1,1 +1,0 @@
-'- filter: select * from edges where type like "Linear"'

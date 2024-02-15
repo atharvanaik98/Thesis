@@ -1,3 +1,4 @@
+from cgitb import text
 import vertexai
 import requests
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
@@ -15,7 +16,7 @@ vertexai.init(project = "totemic-veld-412608")
 
 here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
-filepath = (here / "yaml.yml")
+filepath = (here / "query.txt")
 
 model = GenerativeModel("gemini-pro")
 chat = model.start_chat()
@@ -33,5 +34,7 @@ response = chat.send_message(prompt)
 print()
 print(remove_code_fences(response.text))
 
-with open (filepath, 'w') as yaml_file:
-    yaml.dump(response.text, yaml_file, default_flow_style = False)
+with open (filepath, 'w') as text_file:
+    text_file.write(response.text)
+    text_file.close()
+
