@@ -1,2 +1,16 @@
-define bot response
-    
+define user ask select geometric entity
+    "select all faces with radius less than 10" 
+    "select all boltholes and then select all corresponding edges"
+    "select all cylindrical faces and then deselect their corresponding edges"
+    "select all cylindrical faces and then select all corresponding edges"
+
+define flow llm
+    read_context = rag(query = $relevant_chunks)
+    user ask select geometric entity
+    bot answer question with read_context
+
+define subflow 
+    user ask select geometric entity
+    $check_facts = True
+    bot answer question with read_context
+

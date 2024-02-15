@@ -25,7 +25,7 @@ rails:
 
   retrieval:
     flows:
-      - check retrieval sensitive data
+      - check retrieval correct output format
 
   dialog: 
     single_call: 

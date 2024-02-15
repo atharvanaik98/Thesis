@@ -10,11 +10,11 @@ from nemoguardrails import LLMRails, RailsConfig
 model = VertexAI(model_name = "gemini-pro")
 
 #selection of config path 
-config_path = ("C:\Onedrive\OneDrive - Chalmers\Thesis Files\Repo\Thesis\Config\config.yml")
+config_path = Path.cwd() / "Config"
 
 #initiate guardrails for the model
-config = RailsConfig.from_path(config_path)
-rails = LLMRails(config)
+config = RailsConfig.from_path(str(config_path /"config.yml"))
+rails = LLMRails(str(config_path / "rails/rails.co"))
 
 #Github location url for the context file stored in the repository 
 repo_url = "https://raw.githubusercontent.com/firestorm98/Thesis/main/Input.txt"
@@ -24,21 +24,11 @@ headers = {
     "Accept": "text/plain"
 }
 
-#section is on hold until nemoguard rails are being figured out. Doesnt work anyway, required for reference. 
-"""
-async def generate_text():
-    context = requests.get(repo_url, headers=headers).text
-    prompt = input("Enter the description of the geometry you want to select: ")
-    modelprep = await model.abatch([context, prompt])
-    generated_text = modelprep[0]
-    print(generated_text)
+def generate_async():
+    prompt = str(config_path / "prompt/prompt.yml")
+    messages = {"role": "user", "content": "I am a software engineer"}
 
-asyncio.run(generate_text())
-"""
 
-response = rails.generate(messages=[{
-    "role": "user",
-    "content": input("Enter the description of the geometry you want to select: ")
-}])
+response = rails.generate_async
 
 print(response)
