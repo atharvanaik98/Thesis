@@ -1,3 +1,4 @@
+from cgitb import text
 import vertexai
 import requests
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
@@ -15,19 +16,8 @@ vertexai.init(project = "totemic-veld-412608")
 
 here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
-filepath = (here / "yaml.yml")
+filepath = (here / "query.txt")
 
-#redundant code for now 
-"""
-repor_url = "https://raw.githubusercontent.com/firestorm98/Thesis/main/Input.txt"
-TOKEN = "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"
-headers = {
-    "authorization": f"token {TOKEN}", 
-    "Accept": "text/plain"
-
-}
-context = requests.get(repor_url, headers=headers)
-"""
 model = GenerativeModel("gemini-pro")
 chat = model.start_chat()
 
@@ -44,5 +34,7 @@ response = chat.send_message(prompt)
 print()
 print(remove_code_fences(response.text))
 
-with open (filepath, 'w') as yaml_file:
-    yaml.dump(response.text, yaml_file, default_flow_style = False)
+with open (filepath, 'w') as text_file:
+    text_file.write(response.text)
+    text_file.close()
+

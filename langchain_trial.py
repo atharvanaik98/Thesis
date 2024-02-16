@@ -2,11 +2,12 @@
 import asyncio
 from langchain_google_vertexai import VertexAI
 from langchain_core.prompts import PromptTemplate
-import requests
+import vertexai
 from pathlib import Path
 from nemoguardrails import LLMRails, RailsConfig
 
 #selection of the model for generative content: 
+vertexai.init(project = "totemic-veld-412608")
 model = VertexAI(model_name = "gemini-pro")
 
 #selection of config path 
