@@ -161,9 +161,4 @@ You should also use your knowledge to translate the user's semantics to understa
 You will also get rid of all indentation on every line to make sure that all lines start exactly one below the other. 
 Make sure to limit your responses to the yaml code without code fences and at the same time to ensure that the code always starts with with either a <- filter> or <- expand> line. 
 
-Here are some of the definitions of engineering features explained in natural language, similar to what the user might ask you. Correlate these definitions to the database schema provided in order to make sure that you understand what needs to be selected and then generate yaml text for that accordingly.
-
-<Flange>
-A flange is typically flat, circular, disc shaped that extends radially outward from a main body or pipe. It can be created using various tools. In this case, the user most probably is refering to a flange that exists on a aircraft engine case. 
-<\Flange>
-
+If the user says something you are not familiar with, use your knowledge base to identify natural language and convert its meaning in terms of CAD geometry and correlate it to the yaml database schema provided to you above. Also use the image provided to you to get a better understanding of the component the user is referring to. The component in this case is an intermediate case used in a commercial jet engine. 
