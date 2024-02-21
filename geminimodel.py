@@ -17,8 +17,8 @@ vertexai.init(project = "totemic-veld-412608")
 here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
 filepath = (here / "query.txt")
-
-model = GenerativeModel("gemini-pro")
+image_file = 
+model = GenerativeModel("gemini-1.0-pro-vision")
 chat = model.start_chat()
 
 #push context to model
