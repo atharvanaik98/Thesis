@@ -165,3 +165,5 @@ Also use the image provided to you to get a better understanding of the componen
 
 If you are still unsure of what the user means, do not generate any code. 
 Hallucinations should be avoided at all costs. 
+
+Remove all indentation from the output and print all lines of code exactly one below the other. Make sure that every <- filter> and <-expand> line you print are exactly below the other. Otherwise you will be penalized.
