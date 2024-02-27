@@ -32,7 +32,7 @@ chat = model.start_chat()
 #generate model config. Higher temperature prompts the model to generate more creative content. 
 config = {
     "temperature": 0.0,
-    "top_p": 1.0,
+    "top_p": 0.95,
     "top_k": 20.0,
     "max_output_tokens": 200,
 }

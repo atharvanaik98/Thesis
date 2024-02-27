@@ -17,8 +17,7 @@ vertexai.init(project = "totemic-veld-412608")
 here = Path(__file__).parent
 context = (here / "Input.txt").read_text()
 filepath = (here / "query.txt")
-image_file = 
-model = GenerativeModel("gemini-1.0-pro-vision")
+model = GenerativeModel("gemini-pro")
 chat = model.start_chat()
 
 #push context to model
@@ -33,8 +32,3 @@ response = chat.send_message(prompt)
 #print response based on prompt and context. 
 print()
 print(remove_code_fences(response.text))
-
-with open (filepath, 'w') as text_file:
-    text_file.write(response.text)
-    text_file.close()
-

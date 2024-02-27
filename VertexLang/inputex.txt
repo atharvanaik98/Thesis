@@ -1,0 +1,21 @@
+The input that you get from the user will look like the examples mentioned below: 
+
+If the user wants to select all the faces in the model with radius less than 10mm then the input will look like this: 
+
+<Example 1>
+select all faces with radius less than 10mm
+</Example 1> 
+
+If the user wants to select all boltholes, then the input will look like this: 
+
+<Example 2>
+select all boltholes
+</Example 2> 
+
+if the user wants to select all faces with radius less than 10mm and then select all boltholes, then the input will look like this: 
+
+<Example 3>
+select all faces with radius less than 10mm and then select all boltholes
+</Example 3>
+
+<>
