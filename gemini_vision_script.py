@@ -13,18 +13,11 @@ def remove_code_fences(text):
     lines = [line for line in lines if not line.strip().startswith('```')]
     return '\n'.join(lines)
 
-def appendtoyaml(filepath, response):
-    with open (filepath, 'w') as yamlfile:
-        yaml.safe_dump(response)
- 
-
+#parent path definition
 here = Path(__file__).parent
 
 #Append the contents of the input file to a variable named context
 context = (here / "Input.txt").read_text()
-
-#path to the yaml file
-filepath = (here / "query.yml")
  
 #provide the model with the image that needs to be analysed.
 image_file = (here / "exhaust_case.jpg")
@@ -39,6 +32,9 @@ chat = model.start_chat()
 #generate model config. Higher temperature prompts the model to generate more creative content. 
 config = {
     "temperature": 0.0,
+    "top_p": 1.0,
+    "top_k": 20.0,
+    "max_output_tokens": 200,
 }
 
 #Input the prompt here
@@ -53,8 +49,5 @@ while True:
         print()
         #print model response
         print(response.text)
-
-        response = response.text
-        appendtoyaml(filepath, response)
 
 
