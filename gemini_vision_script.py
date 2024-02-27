@@ -50,7 +50,4 @@ while True:
         #print model response
         print(response.text)
 
-        response = response.text
-        appendtoyaml(filepath, response)
-
 
