@@ -44,6 +44,7 @@ Make sure to limit your output only to the yaml. I do not want code fences.
 I want you to use the following database schema to generate the prompts based on the examples shown and described earlier.
 
 <Database_Schema>
+
  Table Name: bodies
 Column Name    |Column Type    |Max            |Min            |Count          |Unique Values  |
 ---------------|---------------|---------------|---------------|---------------|---------------|
