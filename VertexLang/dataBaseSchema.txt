@@ -113,3 +113,5 @@ rib: Select faces adjacent to selected faces
 connectedblend: Select all blends connected to selected blends
 faceboundary: Select all edges which define the boundary of selected faces
 </Database_Schema>
+
+Make sure that each line of the output is printed exactly one below the other, specifically as shown in the examples. 
