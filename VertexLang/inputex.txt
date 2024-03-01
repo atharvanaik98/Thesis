@@ -1,21 +1,15 @@
-The input that you get from the user will look like the examples mentioned below: 
-
-If the user wants to select all the faces in the model with radius less than 10mm then the input will look like this: 
-
-<Example 1>
+<Example1>
 select all faces with radius less than 10mm
-</Example 1> 
+</Example1> 
 
-If the user wants to select all boltholes, then the input will look like this: 
-
-<Example 2>
+<Example2>
 select all boltholes
-</Example 2> 
+</Example2> 
 
-if the user wants to select all faces with radius less than 10mm and then select all boltholes, then the input will look like this: 
+<Example3>
+select all faces with radius 6mm and of the type blend on the xaxis between 237 and 242 and then select the connectedblend and then select adjacent faces and then select cylindrical faces in the yz plane between angle 45 and 325 followed by a selection of the corresponding edges.
+</Example3>
 
-<Example 3>
-select all faces with radius less than 10mm and then select all boltholes
-</Example 3>
-
-<>
+<Example4>
+select some circular edges with radius less than 10mm.
+</Example4>
