@@ -1,0 +1,20 @@
+<Example1>
+- filter: select * from faces where radius < 10 and type like "Cylindrical"
+</Example1
+
+<Example2>
+- filter: select * from faces where radius < 10 and type like "Cylindrical"
+- expand: faceedges
+</Example2>
+
+<Example3>
+- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
+- expand: connectedblend
+- expand: adjacent
+- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
+- expand: faceedges
+</Example3>
+
+<Example4>
+- filter: select * from edges where and type like "Circular" and radius < 10
+</Example4>
