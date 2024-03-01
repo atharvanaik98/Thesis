@@ -11,6 +11,7 @@ Remove all indentation from the output and print all lines of code exactly one b
 
 Make sure that the printed output contains only yaml text. Do not print any other text. 
 Remove the empty space from the beginning of each line before printing the output.
+Remove all code fences from the output as well, keeping just the yaml text as shown in the examples.
 
 You are to use the following database schema to generate the prompts based on the examples shown and described earlier.
 
