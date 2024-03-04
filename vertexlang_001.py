@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptT
 from langchain_google_vertexai import ChatVertexAI
 from pathlib import Path
 from langchain_core.output_parsers import StrOutputParser
-
+import vertexai
 # Function definitions
 
 #function to call a path to the file and read it. 
@@ -81,6 +81,7 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 )
 
 '''Function call to run the model'''
+vertexai.init(project="simcenter-llm-trials")
 test_vertexai(few_shot_prompt)
 
 
