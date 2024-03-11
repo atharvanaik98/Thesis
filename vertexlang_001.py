@@ -1,7 +1,6 @@
 # Import necessary packages
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate
-from langchain_google_vertexai import ChatVertexAI
 from pathlib import Path
 from langchain_core.output_parsers import StrOutputParser
 import vertexai
@@ -85,3 +84,4 @@ vertexai.init(project="simcenter-llm-trials")
 test_vertexai(few_shot_prompt)
 
 
+vertexai.init(project= "")
