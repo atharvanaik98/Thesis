@@ -1,4 +1,4 @@
-Here are a few examples of possible commands that the user can enter, shown in XML tags
+The content within XML tags are a few examples of possible commands that the user can enter 
 
 <Example1>
 select all faces with radius less than 10mm

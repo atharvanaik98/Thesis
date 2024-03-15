@@ -81,7 +81,9 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 
 '''Function call to run the model'''
 vertexai.init(project="simcenter-llm-trials")
-test_vertexai(few_shot_prompt)
 
+while True:
+    try:
+        test_vertexai(few_shot_prompt)
+    except 
 
-vertexai.init(project= "")

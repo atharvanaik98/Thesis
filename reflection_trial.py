@@ -44,7 +44,7 @@ schema = context_gen("dataBaseSchema.txt")
 refsystem = context_gen("ref_system.txt")
 
 '''change the human variable to test different inputs'''
-human = ("Select all the faces with radius less than 400mm and then select their corresponding edges and then select their faces")
+human = ("Select all boltholes and then select their corresponding edges.")
 
 examples = [
     {"input": input_examples, "output": output_examples},
@@ -62,7 +62,7 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 )
 
 prompt = ChatPromptTemplate.from_messages([("system", system), MessagesPlaceholder(variable_name="messages"),])
-chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
+chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.0)
 generate = prompt | chat
 
 yaml = ""
@@ -113,4 +113,6 @@ graph = builder.compile()
 async def main():
     async for event in graph.astream(HumanMessage(content=human)):
         print(event)
-        print("---")  
+          
+
+        
