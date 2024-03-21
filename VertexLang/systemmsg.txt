@@ -128,3 +128,15 @@ rib: Select faces adjacent to selected faces
 connectedblend: Select all blends connected to selected blends
 faceboundary: Select all edges which define the boundary of selected faces
 </Database_Schema>
+
+It is of utmost importance that the generated YAML be according to the example of the yamltext given below
+
+<example>
+
+- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
+- expand: connectedblend
+- expand: adjacent
+- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
+- expand: faceedges
+
+</example>

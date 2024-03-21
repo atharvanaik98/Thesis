@@ -3,11 +3,11 @@
 
 # %%
 from langchain_openai import OpenAI
-from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
+from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder, PromptTemplate
 from langchain_openai import ChatOpenAI
 from pathlib import Path
 from langchain_core.output_parsers import StrOutputParser
-from langchain.output_parsers import PydanticToolsParser
+from langchain.output_parsers import PydanticToolsParser, YamlOutputParser
 import datetime
 from typing import Literal, Optional, Tuple
 from langchain_core.pydantic_v1 import BaseModel, Field
@@ -15,7 +15,6 @@ from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langchain.globals import set_debug
 from typing import List, Sequence
 from langgraph.graph import MessageGraph, END
-
 
 
 # %% [markdown]
@@ -34,6 +33,7 @@ def remove_code_fences(text):
     lines = text.split("\n")
     lines = [line for line in lines if not line.strip().startswith('```')]
     lines[0] = lines[0].replace(' -', '-', 1)
+    print()
     return "\n".join(lines)
 
 #invoke and run the model with the given prompt
@@ -70,7 +70,7 @@ refsystem = context_gen("ref_system copy.txt")
 
 
 '''change the human variable to test different inputs'''
-human = ("select all struts")
+human = ("select all faces with radius less than 10mm in the xy plane")
 
 
 # %% [markdown]
@@ -102,7 +102,16 @@ class SubQuery(BaseModel):
         description="The text to be used as a sub-query in the prompt.",
     )   
 
+#First input to the model, breaks query down and provides geometry definition
+
+class YamlText(BaseModel):
+    text: str = Field(SQLQuery = "Yaml Text printed one line at a time")
     
+
+
+# %%
+"""This model sends the user query to the LLM, which then breaks it down into smaller parts if there are words it does not understand"""
+
 system2 = context_gen("system2.txt")
 prompt = ChatPromptTemplate.from_messages([("system", system2), ("human", human),])
 
@@ -115,69 +124,100 @@ result = output[0].sub_query
 
 
 # %%
+"""The next step is to generate a definition of the words it did not understand, based on the broken down query in the previous step"""
+
+#get context file 
 system3 = context_gen("reflect1.txt")
 
-
-reflect1 = ChatPromptTemplate.from_messages([("system", system3), ("human", result)])
+#chat prompt template for defining the words 
+definer = ChatPromptTemplate.from_messages([("system", system3), ("human", result)])
 chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
+
+#using string output parser as the output is a string
 output_parser = StrOutputParser()
-chain2 = reflect1 | chat | output_parser
-someoutput = chain2.invoke({})
-print(someoutput)
+chain2 = definer | chat | output_parser
+definition = chain2.invoke({}, {"tags":["loop 002"]})
+print(definition)
 
 
 # %%
-prompt = ChatPromptTemplate.from_messages([("system", system), MessagesPlaceholder(variable_name="messages"),])
-chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.0)
-generate = prompt | chat
+"""This step generates an SQL query in YAML with a single shot prompt, based on a single example, emphasizing on basic requirements of the output"""
 
+parser = StrOutputParser()
+prompt = ChatPromptTemplate.from_messages([("system", system), MessagesPlaceholder(variable_name="messages")])
+chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
+generate = prompt | chat 
+
+#generates the output and appends it to the empty string stored in the yaml variable.
 yaml = ""
-request = HumanMessage(content = someoutput)
-for chunk in generate.stream({"messages": [request]}):
-    result = (remove_code_fences(chunk.content))
-    print(result, end = "")
+request = HumanMessage(content = human)
+for chunk in generate.stream({"messages": [request]}, {"tags": ["loop 003"]}):
+    result = chunk.content
     yaml += result
-    
+    print(result, end="")    
 
-reflection_prompt = ChatPromptTemplate.from_messages([("system", refsystem), few_shot_prompt, MessagesPlaceholder(variable_name="messages")])
 
+# %%
+"""The next step is to ask the model to carry out a self reflection on the output that it generated in the previous step and provide feedback on the same, after which it generates an improved output taking the same feedback into consideration."""
+
+reflection_prompt = ChatPromptTemplate.from_messages([("system", refsystem), few_shot_prompt, ("ai", definition), MessagesPlaceholder(variable_name="messages"), ])
+
+#the chat variable below can be changed if reflection needs to be used from a different LLM model. 
+#chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
+
+#chain for the reflection prompt.
 reflect = reflection_prompt | chat 
 
+#generates the output and appends it to the empty string stored in the reflectedyaml variable.
 reflectedyaml = ""
-for chunk in reflect.stream({"messages": [request, HumanMessage(content=yaml)]}):
-    result = remove_code_fences(chunk.content)
+for chunk in reflect.stream({"messages": [request, HumanMessage(content=yaml)]}, {"tags": ["loop 004"]}):
+    result = chunk.content
     print(result, end="")
     reflectedyaml += result
 
-async def generation_node(state: Sequence[BaseMessage]) -> List[BaseMessage]:
+
+
+# %%
+"""This section generates definitions of the reflection and generation nodes for the langgraph"""
+
+async def generation_node(state: Sequence[BaseMessage]):
+    return await generate.ainvoke({"messages": state})
+
+async def reflection_node(messages: Sequence[BaseMessage]) -> List[BaseMessage]:
     cls_map = {"ai": HumanMessage, "human": AIMessage}
     translated = [messages[0]] + [cls_map[m.type](content = m.content) for m in messages[1:]]
     res = await reflect.ainvoke({"messages": translated})
-    print()
-    print(res.content)  # Print the output
     return HumanMessage(content=res.content)
 
-async def reflection_node(state: Sequence[BaseMessage]):
-    return await reflect.ainvoke({"messages": state})
 
-
+# %%
+"""Building the graph according to the nodes defined earlier, also contains a conditional node to iterate through multiple loops of the generation and reflection cycle to improve the output before printing final response"""
 builder = MessageGraph()
 builder.add_node("generate", generation_node)
 builder.add_node("reflect", reflection_node)
 builder.set_entry_point("generate")
 
-def should_coninue(state: List[BaseMessage]):
-    if len(state) > 6:
-        return END  
-    return generate
+#iteration function. Change the number of iterations as required.
+def should_continue(state: List[BaseMessage]):
+    if len(state) > 5:
+        return END
+    return "reflect"
 
 
-builder.add_conditional_edges("generate", should_coninue)
+#building and compiling the graph.
+builder.add_conditional_edges("generate", should_continue)
 builder.add_edge("reflect", "generate")
 graph = builder.compile()
+print()
 
-
-async def main():
-    async for event in graph.astream(HumanMessage(content=someoutput)):
-        print(event)
+#run the graph and trace the output using langsmith. 
+async for event in graph.astream(HumanMessage(content=human)):
+    print(event)
+    print('---')
      
+
+
+# %%
+
+
+

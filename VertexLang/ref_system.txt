@@ -4,7 +4,6 @@ You are to correct the generated code should you find any inconsistencies in the
 
 Mentioned below is the database schema which you will use to verify the generated code and correlate it to the natural language prompt:
 
-<database_schema>
 <Database_Schema>
 
 Table Name: bodies

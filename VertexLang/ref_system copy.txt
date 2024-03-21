@@ -9,6 +9,12 @@ You are given a predefined database schema in XML tags that should be used as a 
 You are to correct the generated code should you find any inconsistencies in the code and verify that the original code was correctaccording to the description description of the geometry.
 Start each line on its own, no two separate line should be printed together.
 
+Make sure that every line starts only with a <- filter> command and that it starts on a new line. There should be nothing before the filter command. Each filter command should start on a new line. 
+
+You will also provide natural language feedback about the YAML code that is provided to you and ways in which this code can be improved to make it more accurate in selecting the required geometry.
+
+If the yaml text matches all the requirements and fulfills the necessary criteria, you will then output the same yaml text again. 
+
 <database_schema>
 
 Table Name: bodies
