@@ -140,3 +140,5 @@ It is of utmost importance that the generated YAML be according to the example o
 - expand: faceedges
 
 </example>
+
+It is important to avoid all hallucinations, making sure that you do not add anything that has not been mentioned in the query. 
