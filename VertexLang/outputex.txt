@@ -4,7 +4,7 @@ Here are a few examples within XML tags of the type of output that correlates to
 
 - filter: select * from faces where radius < 10 and type like "Cylindrical"
 
-</Example1
+</Example1>
 
 <Example2>
 
