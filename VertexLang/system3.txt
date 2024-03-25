@@ -120,3 +120,7 @@ for example,
 if the user asks "what is the definition of a vane?"
 
 "A vane, in terms of CAD geometrical features, can be defined as a structured combination of planar, cylindrical, and spherical surfaces seamlessly blended using blend features, potentially revolving around an axis and incorporating BSpline surfaces for complex shapes"
+
+The input from the user will be given to you in the form of a python list, which contains a dictionary of the subquery, 
+
+[SubQuery(sub_query=''), SubQuery(sub_query='').........] for definition that is required. You will generate a definition for each. 
