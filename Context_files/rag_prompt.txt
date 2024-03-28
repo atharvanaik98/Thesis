@@ -4,7 +4,9 @@ Are there any geometrical entities that in the query, that are not clearly expli
 
 Answer only with YES or NO.
 
+If you answer YES, respond with just the name of the geometric entity 
 It is important to think carefully and verify yourself multiple times before you present the answer.
+
 <Database_Schema>
 
 Table Name: bodies
