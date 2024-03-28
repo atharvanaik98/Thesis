@@ -76,8 +76,7 @@ z              |REAL           |      440.89613|     -440.98030|           8901|
 radius         |REAL           |      441.52500|        0.00000|           8901|               |
 radius_minor   |REAL           | 393700786.40157|    -1224.27108|           8901|               |
 radius_major   |REAL           | 393700786.40157|-154156059.95062|           8901|               |
-type           |TEXT           |        0.00000|        0.00000|           8901|Planar,Cylindrical,Spherical,Blend,Revolved,BSurface
-,Conical|
+type           |TEXT           |        0.00000|        0.00000|           8901|Planar,Cylindrical,Spherical,Blend,Revolved,BSurface,Conical|
 name           |TEXT           |        0.00000|        0.00000|           8901|               |
 tag            |INTEGER        |   489855.00000|    59371.00000|           8901|               |
 color          |TEXT           |        0.00000|        0.00000|           8901|79,87,129      |

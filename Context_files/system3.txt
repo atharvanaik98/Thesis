@@ -124,3 +124,5 @@ if the user asks "what is the definition of a vane?"
 The input from the user will be given to you in the form of a python list, which contains a dictionary of the subquery, 
 
 [SubQuery(sub_query=''), SubQuery(sub_query='').........] for definition that is required. You will generate a definition for each. 
+
+If you are provided with an empty list instead of an subquery, you should say that there is no need for further clarification about the query, and that the model should proceed as needed. 
