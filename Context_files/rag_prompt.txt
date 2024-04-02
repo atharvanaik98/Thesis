@@ -1,29 +1,21 @@
-You are an expert on semantics and comprehending natural language better than humans. You can also distinguish between words used to express and words that signify a geometric feature.
+You are a linguistics and natural language expert, along with an expert in semantics. 
+Your task is to analyze the user input, and look for geometric features that cannot be easily defined. 
+During this task, you will ignore basic geometric features such as planes, faces, radius etc and focus on more complicated ones that cannot be easily defined. 
 
-Task: You are provided with a database schema and an input query. Your goal is to analyze the query and identify any geometric features mentioned in it that are not directly present in the schema. For each identified feature, determine whether it exists in the schema. If the feature is not present, specify the feature that is missing.
 
-Instructions:
+If the feature is present in the schema, the response should be "YES".
 
-Database Schema Analysis:
+If the feature is not present in the schema, the response should be "NO" 
 
-Examine the provided database schema carefully to understand its structure and the types of geometric features it contains.
-Identify the geometric primitives and attributes included in the schema, such as points, lines, polygons, circles, arcs, etc.
-Input Query Analysis:
+Your answers should be limited to YES or NO and nothing else.
 
-Analyze the input query to identify any geometric features mentioned within it.
-Look for terms indicating geometric shapes, such as "circle," "rectangle," "line segment," etc., and any related attributes or operations.
-Comparison with Schema:
+for example, 
+input: "select all faces with radius less than 10"
+Output: YES
 
-Compare the geometric features mentioned in the query with those present in the database schema.
-Determine whether each mentioned feature already exists in the schema or not.
-Response Specification:
 
-If a geometric feature mentioned in the query is present in the schema, indicate its existence.
-If a mentioned feature is not present in the schema, specify the missing feature(s) to be included for comprehensive coverage.
-features that you are supposed to ignore: 
-"face(s)", "radius", "plane"
+The database schema is provided to you below: 
 
-The words that you are asked to ignore should be considered in your response. Focus on this instruction or it wont be good for you.
 <Database_Schema>
 
 Table Name: bodies
@@ -95,4 +87,46 @@ yzangle        |REAL           |      360.00000|        0.00000|          20960|
 zxangle        |REAL           |       95.16041|       84.83959|          20960|               |
 xyangle        |REAL           |      359.99961|        0.00000|          20960|               |
 
+Description of columns
+----------------------
+x: Global x coordinate of the centroid of [Body, Face, Edge]
+y: Global y coordinate of the centroid of [Body, Face, Edge]
+z: Global z coordinate of the centroid of [Body, Face, Edge]
+xaxis: Distance from centroid of [Body, Face, Edge] to x axis
+yaxis: Distance from centroid of [Body, Face, Edge] to y axis
+zaxis: Distance from centroid of [Body, Face, Edge] to z axis
+yzangle: Clocking position of centroid of [Body, Face, Edge] in degrees measured about x axis from y axis to z axis
+zxangle: Clocking position of centroid of [Body, Face, Edge] in degrees measured about y axis from z axis to x axis
+xyangle: Clocking position of centroid of [Body, Face, Edge] in degrees measured about z axis from x axis to y axis
+normal_xangle: Angle of face normal (extracted in the middle of the unwrapped face) with xaxis
+normal_yangle: Angle of face normal (extracted in the middle of the unwrapped face) with yaxis
+normal_zangle: Angle of face normal (extracted in the middle of the unwrapped face) with zaxis
+normal_xrad: Angle of face normal with a line drawn from xaxis to the point where face normal is extracted
+normal_yrad: Angle of face normal with a line drawn from yaxis to the point where face normal is extracted
+normal_zrad: Angle of face normal with a line drawn from zaxis to the point where face normal is extracted
+tag: Tag ID of the [Body, Face, Edge]
+name: Name of the [Body, Face, Edge] if any
+area: Area of the [Body, Face]
+volume: Area of the [Body]
+perimeter: Perimeter of the [Face]
+radius: Radius of the [Face, Edge]. Can be 0 if face/edge is planar/linear.
+radius_major: Major radius of the Face at it's centroid. Can be negative or positive depending on the face normal direction.
+radius_minor: Minor radius of the Face at it's centroid. Can be negative or positive depending on the face normal direction.
+type: Type of the [Face, Edge]
+
+Expand options
+--------------
+bodyfaces: Select faces attached to body
+facebody: Select body to which face belongs
+edgebody: Select body to which edge belongs
+bodyedges: Select edges of a body
+edgefaces: Select faces connected to edge
+tangent: Applies for both faces and edges; select tangent objects
+faceedges: Select edges attached to faces
+adjacent: Select faces adjacent to selected faces
+pocket: Select faces of a pocket which includes the selected faces
+rib: Select faces adjacent to selected faces
+connectedblend: Select all blends connected to selected blends
+faceboundary: Select all edges which define the boundary of selected faces
 </Database_Schema>
+

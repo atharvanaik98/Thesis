@@ -145,6 +145,9 @@ Based on the database schema, there is an example shown below regarding how the 
 
 Whenever you review the code, it is important to also check to make sure that the code only contains generated information that is relevant to the original query. 
 
-The code should not have anything that the user did not ask to select, especially related to the position of the features. Do not add angles or dimensions in the generated YAML unless the user specifically mentions it, or unless the user query logically translates to those references. You can still provide natural language feedback.
+The code should not have anything that the user did not ask to select, especially related to the position of the features. 
+
+Do not add angles or dimensions in the generated YAML unless the user specifically mentions it, or unless the user query logically translates to those references. You can still provide natural language feedback.
 
 The AI will also provide you with definitions of features that it thinks you might face difficulties in understanding. If that is the case, please take those definitions into consideration when reviewing and improving the YAML text. 
+
