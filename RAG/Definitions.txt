@@ -1,8 +1,16 @@
+Information about the model: 
+The CAD model is a intermediate case for an aircraft engine, which is oriented in the YZ plane, which means that the airflow direction is assumed to be along the positive x axis. The flanges and all planar parts are also aligned with the yz plane due to its natural orientation.
+
+
 Flanges: Flanges are planar surfaces with a relatively large area compared to neighboring surfaces. In the faces table, we can identify flanges by their large area and planar type.
 
-Vanes: Vanes are typically thin planar structures used for directing or controlling fluid flow. In the faces table, vanes can be identified as thin planar surfaces with relatively large areas.
+The sql version of a flange is given below, in order to help you get a better idea of the feature that needs to be selected. 
+This means that a flange can be selected based on a combination of the below mentioned criteria depending on the 
+requirements. 
 
-Struts: Struts are structural components that provide support or reinforcement. In the context of CAD, struts may appear as linear features connecting various components. In the edges table, struts can be identified as linear edges with significant lengths.
+Vanes: Vanes are typically thin planar structures used for directing or controlling fluid flow. In the faces table, vanes can be identified as thin planar surfaces with relatively large areas. The ways in which vanes could be selected are mentioned in the SQL query below, you can use that to get a better idea. 
+
+Strut Fillets: Struts are structural components that provide support or reinforcement. In the context of CAD, struts may appear as linear features connecting various components. In the edges table, struts can be identified as linear edges with significant lengths.
 
 Leading Edge: The leading edge is the foremost edge of an object, especially in aerodynamics. In the context of CAD, it may refer to the edge of a surface that faces the direction of motion or airflow. In the edges table, leading edges may be identified based on their orientation relative to the airflow or motion direction.
 
