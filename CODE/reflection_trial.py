@@ -6,12 +6,13 @@ from typing import List, Sequence
 from langchain_core.output_parsers import StrOutputParser
 from langchain.globals import set_debug
 from langgraph.graph import MessageGraph, END
-import sys
+import asyncio
+
 
 set_debug(False)
 
 def context_gen(file_name):
-    Folder = "reflection_context"
+    Folder = "Context_files"
     here = Path(locals().get('__file__', Folder)).resolve()
     parameter = (here / file_name).read_text()
     return parameter
@@ -29,7 +30,7 @@ def remove_code_fences(text):
 
 #create inputs to the model, telling it what needs to be done. 
 #provides system message
-system = context_gen("systemmsg.txt")
+system = context_gen("system1.txt")
 
 #provides the few shot examples
 output_examples = context_gen("outputex.txt")
@@ -65,33 +66,26 @@ prompt = ChatPromptTemplate.from_messages([("system", system), MessagesPlacehold
 chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.0)
 generate = prompt | chat
 
-yaml = ""
-request = HumanMessage(content = human)
-for chunk in generate.stream({"messages": [request]}):
-    result = (remove_code_fences(chunk.content))
-    print(result, end = "")
-    yaml += result
-    
+
 
 reflection_prompt = ChatPromptTemplate.from_messages([("system", refsystem), few_shot_prompt, MessagesPlaceholder(variable_name="messages")])
-
 reflect = reflection_prompt | chat 
 
-reflectedyaml = ""
-for chunk in reflect.stream({"messages": [request, HumanMessage(content=yaml)]}):
-    result = remove_code_fences(chunk.content)
-    print(result, end="")
-    reflectedyaml += result
 
-async def generation_node(state: Sequence[BaseMessage]) -> List[BaseMessage]:
-    #adjusting the other messages, I think adjusts the way in which they are sent to the llm
-    cls_map = {"ai": HumanMessage, "human": AIMessage}
-    translated = [messages[0]] + [cls_map[m.type](m.content) for m in messages[1:]]
-    res = await reflect.ainvoke({"messages": translated})
-    return HumanMessage(content=res.content)
 
-async def reflection_node(state: Sequence[BaseMessage]):
-    return await reflect.ainvoke({"messages": state})
+
+async def generation_node(state: Sequence[BaseMessage]):
+        return await generate.ainvoke({"messages": state}, {"tags": ["generation_chain"]})
+
+async def reflection_node(state: Sequence[BaseMessage]) -> List[BaseMessage]:
+        # Other messages we need to adjust
+        cls_map = {"ai": HumanMessage, "human": AIMessage}
+        # First message is the original user request. We hold it the same for all nodes
+        translated = [state[0]] + [cls_map[msg.type](content=msg.content) for msg in state[1:]]
+        res = await reflect.ainvoke({"messages": translated}, {"tags": ["reflection_chain"]})
+        # We treat the output of this as human feedback for the generator
+        return HumanMessage(content=res.content)
+
 
 
 builder = MessageGraph()
@@ -100,7 +94,7 @@ builder.add_node("reflect", reflection_node)
 builder.set_entry_point("generate")
 
 def should_coninue(state: List[BaseMessage]):
-    if len(state) > 6:
+    if len(state) > 2:
         return END  
     return generate
 
@@ -109,10 +103,24 @@ builder.add_conditional_edges("generate", should_coninue)
 builder.add_edge("reflect", "generate")
 graph = builder.compile()
 
+async def process_events():
+    async for event in graph.astream([HumanMessage(content=str(human))]):
+        for key, value in event.items():
+            if isinstance(value, dict):
+                print(value.get('content'))
+                print('---')
+                print()
+            elif isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        print(item.get('content'))
+                        print('---')
+                        print()
+                    else:
+                        print(item.content)
+                        print('---')
+                        print()
 
-async def main():
-    async for event in graph.astream(HumanMessage(content=human)):
-        print(event)
-          
+    await process_events()
 
-        
+process_events()

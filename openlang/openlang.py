@@ -9,7 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 #function to call a path to the file and read it. 
 def context_gen(file_name):
-    Folder = "VertexLang"
+    Folder = "openlang"
     here = Path(locals().get('__file__', Folder)).resolve()
     parameter = (here / file_name).read_text()
     return parameter
@@ -24,7 +24,7 @@ def remove_code_fences(text):
 #invoke and run the model with the given prompt
 def test_openai(few_shot_prompt):
     generate = ChatPromptTemplate.from_messages([("system", system), few_shot_prompt, ("human", human),])
-    chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.5)
+    chat = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
     #select an output parser
     output_parser = StrOutputParser()
     chain = generate | chat | output_parser
@@ -49,7 +49,7 @@ input_examples = context_gen("inputex.txt")
 schema = context_gen("dataBaseSchema.txt")
 
 '''change the human variable to test different inputs'''
-human = ("select the blend in the xz plane between the angle 45 and 90 and then select the connected blend")
+human = ("select all flanges in the aftmost section of the model")
 
 
 # Few shot prompts example template 

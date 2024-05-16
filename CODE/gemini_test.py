@@ -2,7 +2,7 @@ import vertexai
 from pathlib import Path
 import urllib
 from vertexai.preview.generative_models import GenerativeModel, ChatSession
-vertexai.init(project = "totemic-veld-412608")
+vertexai.init(project = "simcenter-llm-trial")
 def remove_code_fences(text):
     lines = text.split('\n')
     lines = [line for line in lines if not line.strip().startswith('```')]
@@ -23,3 +23,4 @@ response = chat.send_message(prompt)
 
 print()
 print(remove_code_fences(response.text))
+ 
