@@ -22,5 +22,7 @@ prompt = input("Enter the description of the geometry you want to select: ")
 response = chat.send_message(prompt)
 
 print()
+print(response)
+
 print(remove_code_fences(response.text))
  
