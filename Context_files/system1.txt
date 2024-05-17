@@ -48,7 +48,7 @@ z              |REAL           |               |               |               |
 radius         |REAL           |               |               |               |                |
 radius_minor   |REAL           |               |               |               |                |
 radius_major   |REAL           |               |                |               |               |
-type           |TEXT           |               |                |              |Planar,Cylindrical,Spherical,Blend(s),Revolved,BSurface,Conical|
+type           |TEXT           |               |                |              |Planar,Cylindrical,Spherical,Blend,Revolved,BSurface,Conical|
 name           |TEXT           |               |                |               |               |
 tag            |INTEGER        |               |                |               |               | 
 color          |TEXT           |               |                |               |               | 
