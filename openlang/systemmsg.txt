@@ -20,70 +20,70 @@ You are to use the following database schema to generate the prompts based on th
 Table Name: bodies
 Column Name    |Column Type    |Max            |Min            |Count          |Unique Values  |
 ---------------|---------------|---------------|---------------|---------------|---------------|
-id             |INTEGER        |       10.00000|        1.00000|             10|               |
-area           |REAL           |   983152.13577|   296483.31602|             10|               |
-volume         |REAL           |  1740096.89817|   438827.18220|             10|               |
-x              |REAL           |       19.97813|       14.97112|             10|               |
-y              |REAL           |        0.46886|       -0.00000|             10|               |
-z              |REAL           |        1.74981|       -0.00000|             10|               |
-name           |TEXT           |        0.00000|        0.00000|             10|               |
-tag            |INTEGER        |    59501.00000|    59374.00000|             10|               |
-color          |TEXT           |        0.00000|        0.00000|             10|129            |
-xaxis          |REAL           |        1.81153|        0.00000|             10|               |
-yaxis          |REAL           |       20.05462|       14.97112|             10|               |
-zaxis          |REAL           |       19.98364|       14.97112|             10|               |
-yzangle        |REAL           |      290.84290|       47.34528|             10|               |
-zxangle        |REAL           |       90.00000|       84.99447|             10|               |
-xyangle        |REAL           |      360.00000|        0.00000|             10|               |
+id             |INTEGER        |               |               |               |               |
+area           |REAL           |               |               |               |               |
+volume         |REAL           |               |               |               |               |
+x              |REAL           |               |               |               |               |
+y              |REAL           |               |               |               |               |
+z              |REAL           |               |               |               |               |
+name           |TEXT           |               |               |               |               |
+tag            |INTEGER        |               |               |               |               |
+color          |TEXT           |               |               |               |               |
+xaxis          |REAL           |               |               |               |               |
+yaxis          |REAL           |               |               |               |               |
+zaxis          |REAL           |               |               |               |               |
+yzangle        |REAL           |               |               |               |               |
+zxangle        |REAL           |               |               |               |               |
+xyangle        |REAL           |               |               |               |               |
 
 Table Name: faces
 Column Name    |Column Type    |Max            |Min            |Count          |Unique Values  |
 ---------------|---------------|---------------|---------------|---------------|---------------|
-id             |INTEGER        |      405.00000|        1.00000|            405|               |
-area           |REAL           |   202254.94547|        0.07979|            405|               |
-perimeter      |REAL           |     5207.95001|       11.82892|            405|               |
-x              |REAL           |      106.00000|      -50.00000|            405|               |
-y              |REAL           |      240.81250|     -240.81250|            405|               |
-z              |REAL           |      240.81250|     -240.81250|            405|               |
-radius         |REAL           |      250.00000|        0.00000|            405|               |
-radius_minor   |REAL           | 393700786.40157|     -250.00000|            405|               |
-radius_major   |REAL           | 393700786.40157| -3841961.37813|            405|               |
-type           |TEXT           |        0.00000|        0.00000|            405|Cylindrical,Planar,Blend,Revolved,Conical|
-name           |TEXT           |        0.00000|        0.00000|            405|               |
-tag            |INTEGER        |    60408.00000|    59933.00000|            405|               |
-color          |TEXT           |        0.00000|        0.00000|            405|129            |
-normal_xangle  |REAL           |      180.00000|        0.00000|            405|               |
-normal_yangle  |REAL           |      178.91916|        1.08084|            405|               |
-normal_zangle  |REAL           |      180.00000|        0.00000|            405|               |
-normal_xrad    |REAL           |      180.00000|        0.00000|            405|               |
-normal_yrad    |REAL           |      180.00000|        0.00000|            405|               |
-normal_zrad    |REAL           |      180.00000|        0.00000|            405|               |
-xaxis          |REAL           |      240.81250|        0.00000|            405|               |
-yaxis          |REAL           |      245.64794|       10.85003|            405|               |
-zaxis          |REAL           |      245.64794|       24.22807|            405|               |
-yzangle        |REAL           |      359.99445|        0.00000|            405|               |
-zxangle        |REAL           |      351.02971|        5.89837|            405|               |
-xyangle        |REAL           |      360.00000|        0.00000|            405|               |
+id             |INTEGER        |               |               |               |                |
+area           |REAL           |               |               |               |                |
+perimeter      |REAL           |               |               |               |                |
+x              |REAL           |               |               |               |                |
+y              |REAL           |               |               |               |                |
+z              |REAL           |               |               |               |                |
+radius         |REAL           |               |               |               |                |
+radius_minor   |REAL           |               |               |               |                |
+radius_major   |REAL           |               |                |               |               |
+type           |TEXT           |               |                |              |Planar,Cylindrical,Spherical,Blend,Revolved,BSurface,Conical|
+name           |TEXT           |               |                |               |               |
+tag            |INTEGER        |               |                |               |               | 
+color          |TEXT           |               |                |               |               | 
+normal_xangle  |REAL           |               |                |               |               | 
+normal_yangle  |REAL           |               |                |               |               | 
+normal_zangle  |REAL           |               |                |               |               | 
+normal_xrad    |REAL           |               |                |               |               | 
+normal_yrad    |REAL           |               |                |               |               | 
+normal_zrad    |REAL           |               |                |               |               | 
+xaxis          |REAL           |               |                |               |               | 
+yaxis          |REAL           |               |                |               |               | 
+zaxis          |REAL           |               |                |               |               | 
+yzangle        |REAL           |               |                |               |               | 
+zxangle        |REAL           |               |                |               |               | 
+xyangle        |REAL           |               |                |               |               |
 
 Table Name: edges
 Column Name    |Column Type    |Max            |Min            |Count          |Unique Values  |
 ---------------|---------------|---------------|---------------|---------------|---------------|
-id             |INTEGER        |      800.00000|        1.00000|            800|               |
-type           |TEXT           |        0.00000|        0.00000|            800|Intersection,Circular,Linear,Elliptical|
-name           |TEXT           |        0.00000|        0.00000|            800|               |
-length         |REAL           |     1570.79633|        0.01296|            800|               |
-x              |REAL           |      106.00000|      -50.00000|            800|               |
-y              |REAL           |      242.79458|     -240.81250|            800|               |
-z              |REAL           |      240.81250|     -240.81250|            800|               |
-radius         |REAL           |      250.00000|        0.00000|            800|               |
-tag            |INTEGER        |    61588.00000|    60788.00000|            800|               |
-color          |TEXT           |        0.00000|        0.00000|            800|129            |
-xaxis          |REAL           |      242.79458|        0.00000|            800|               |
-yaxis          |REAL           |      245.94849|        8.66457|            800|               |
-zaxis          |REAL           |      250.84598|       24.12222|            800|               |
-yzangle        |REAL           |      358.74157|        0.00000|            800|               |
-zxangle        |REAL           |      351.67949|        4.71658|            800|               |
-xyangle        |REAL           |      359.81570|        0.00000|            800|               |
+id             |INTEGER        |               |               |               |               |
+type           |TEXT           |               |               |               |Intersection,Linear,Circular,Elliptical,Other|
+name           |TEXT           |               |               |               |                |
+length         |REAL           |               |               |               |                |
+x              |REAL           |               |               |               |                |
+y              |REAL           |               |               |               |                |
+z              |REAL           |               |               |               |                |
+radius         |REAL           |               |               |               |                |
+tag            |INTEGER        |               |               |               |                |
+color          |TEXT           |               |               |               |                |
+xaxis          |REAL           |               |               |               |                |
+yaxis          |REAL           |               |               |               |                |
+zaxis          |REAL           |               |               |               |                |
+yzangle        |REAL           |               |               |               |                |
+zxangle        |REAL           |               |               |               |                |
+xyangle        |REAL           |               |               |               |                |
 
 Description of columns
 ----------------------

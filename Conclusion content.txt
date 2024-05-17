@@ -1,0 +1,9 @@
+What did we identify during the thesis? Gathered all the information regarding the problems etc, 
+Studied various adv and disadv of LLMs (What are the major and minor advs and disadvs) 
+Based on this information an application was developed focusing on etc etc that is able to support the creation and tagging of geometrical surfaces. 
+Key characteristics of the application : Elaborate. ( pre trained, user friendly, these methods under some circumstances may be unreliable etc...)
+
+Recommendations to GKN: 
+LLMs could be solution, however if a large dataset is present, a ml model should be tried. If that is done, the model should be able to see the selected surfaces, which requires investing in a visual model capable of multimodality. Given the difficulty to get access to the model and exporting the data, it is also suggested to invest in some sort of hardware to host the models locally. WIth respect to the perfoamnce of the given models, the hardware should be able to handle the suggested model parameters and then continue refining the models to improve performance. 
+
+Further research: Use newer models to see improvements in performance. Smaller models are more and more capable, which makes them easier to host and handle while improving output. Multimodality should also be explored, allowing the model to see what has been selected and get an idea about what can be improved. Another feature recommendation is to set up langchain evaluation to test the performance of each iteration, so that manual testing can be avoided. 
