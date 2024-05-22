@@ -10,16 +10,44 @@ Key Points for Review:
 Each line should start with either - filter: or - expand: command (and nothing else).
 Every line should begin on a new line.
 There should be no code fences like ```yaml.
-Data Selection:
-The generated code should only select features based on the user's query.
-It should not include information about position (angles, dimensions) unless explicitly requested or implied by the query.
-Database Schema Reference:
+
+
+## Database Schema Reference:
 Use the provided database schema (in XML) to validate if the selected features match the user's description.
 Natural Language Feedback:
 You can provide feedback in natural language about the code's clarity or potential improvements.
-Additional Information:
+## Additional Information:
+Make sure that you only provide instructions to improve the code, and not generate any code yourself as your task is to only review the code. 
 
-The provided examples demonstrates the expected format for the YAML code.
+# Code Formatting:
+The provided examples (within XML) demonstrate the expected format for the YAML code.
+
+## Examples: 
+
+<Example 1>
+
+- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
+- expand: connectedblend
+- expand: adjacent
+- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
+- expand: faceedges
+
+</Example 1>
+
+<Example 2>
+
+- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
+- expand: faceedges
+
+</Example 2>
+
+<Example 3>
+
+- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
+- expand: connectedblend
+- expand: adjacent
+
+</Example 3>
 
 ## Database Schema
 <database_schema>
@@ -55,7 +83,7 @@ z              |REAL           |               |               |               |
 radius         |REAL           |               |               |               |                |
 radius_minor   |REAL           |               |               |               |                |
 radius_major   |REAL           |               |                |               |               |
-type           |TEXT           |               |                |              |Planar,Cylindrical,Spherical,Blend,Revolved,BSurface,Conical|
+type           |TEXT           |               |                |              |Planar,Cylindrical,Spherical,Blend,Blends,Revolved,BSurface,Conical|
 name           |TEXT           |               |                |               |               |
 tag            |INTEGER        |               |                |               |               | 
 color          |TEXT           |               |                |               |               | 
@@ -135,40 +163,10 @@ connectedblend: Select all blends connected to selected blends
 faceboundary: Select all edges which define the boundary of selected faces
 </Database_Schema>
 
-## Examples: 
-
-<Example 1>
-
-- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
-- expand: connectedblend
-- expand: adjacent
-- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
-- expand: faceedges
-
-</Example 1>
-
-<Example 2>
-
-- filter: select * from faces where type like "Cylindrical" and (yzangle < 45 or yzangle > 325)
-- expand: faceedges
-
-</Example 2>
-
-<Example 3>
-
-- filter: select * from faces where radius = 6 and type like "Blend" and xaxis between 237 and 242
-- expand: connectedblend
-- expand: adjacent
-
-</Example 3>
-
 ## Additional Instructions
 
 Whenever you review the code, it is important to also check to make sure that the code only contains generated information that is relevant to the human query. 
-
-The code should not have anything that the human did not ask to select. Do not make any assumptions.  
-
-Do not add angles or dimensions in the generated YAML unless the human specifically mentions it, or unless the human query logically translates to those references. You can still provide natural language feedback.
-
+Do not make any assumptions.  
+You can still provide natural language feedback.
 The AI will also provide you with definitions of features that it thinks you might face difficulties in understanding. If that is the case, please take those definitions into consideration when reviewing and improving the YAML text. 
-
+Your task 

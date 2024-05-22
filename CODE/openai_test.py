@@ -1,18 +1,28 @@
-import vertexai
+# %%
+from openai import OpenAI 
 from pathlib import Path
-import urllib
-from vertexai.preview.generative_models import GenerativeModel, ChatSession
-vertexai.init(project = "simcenter-llm-trial")
+
+client = OpenAI()
 def remove_code_fences(text):
     lines = text.split('\n')
     lines = [line for line in lines if not line.strip().startswith('```')]
     return '\n'.join(lines)
 
-here = Path(__file__).parent
-context = (here / "Input.txt").read_text()
+file_path = "C:\\tools\\git\\Thesis\\CODE\\Input.txt"
+text = Path(file_path).read_text()
 
-model = GenerativeModel("gemini-pro")
-chat = model.start_chat()
+# Print the contents of the text file
+
+
+def test_openai(human):
+    completion = client.chat.completions.create(model = "gpt-3.5-turbo", messages = [
+        {"role": "system", "content": text},
+        {"role": "user", "content": str(human)}
+    ]
+        )
+    print(remove_code_fences(completion.choices[0].message.content))
+    return
+
 a = "Select all faces with radius less than 10"
 b = "Select all faces with radius less than 5 and then select their corresponding edges"
 c = "Select circular edges with a radius less than 6 and then select their adjacent edges"
@@ -24,16 +34,7 @@ h = "Select all flanges in the model"
 i = "Select all struts in the model and then select their leading edges"
 j = "Select all strut fillets in the aftmost section of the model"
 
-human = f
+human = a
+test_openai(human)
 
-chat.send_message(context)
-#Input the prompt here
-prompt = human
 
-#Generate a response based on the prompt
-response = chat.send_message(prompt)
-
-print()
-print(response)
-
-print(remove_code_fences(response.text))
