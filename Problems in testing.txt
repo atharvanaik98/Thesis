@@ -1,3 +1,0 @@
-Errors with the output parser (pydantic output parser) that were present but were deemed irrelevant to the language model, but were part of the langchain framework. 
-
-GPT 4 comes close to selecting all strut fillets but is unable to select them all for some reason, which can be improved if the RAG definitions are improved
